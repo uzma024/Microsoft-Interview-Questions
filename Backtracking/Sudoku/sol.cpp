@@ -1,34 +1,39 @@
-class Solution {
-public:
-    bool isValid(vector<vector<char>> &board,int &row,int &col,char &c){
-        for(int i=0;i<9;i++){
-            if(board[i][col]==c)return false;
-            if(board[row][i]==c)return false;
-            if(board[3*(row/3) + i/3][3*(col/3) +i%3]==c)return false;
-        }
-        return true;
+bool isValid(vector<vector<char> > &A,int row,int col,char c){
+    for(int i=0;i<9;i++){
+        if(A[i][col]==c)return false;
+        if(A[row][i]==c)return false;
+        if(A[3*(row/3) + i/3][3*(col/3) + i%3]==c)return false;
     }
-    
-    bool solve(vector<vector<char>> &board){
-        for(int i=0;i<board.size();i++){
-            for(int j=0;j<board[0].size();j++){
-                if(board[i][j]=='.'){
-                    for(char c='1';c<='9';c++){
-                        if(isValid(board,i,j,c)){
-                            board[i][j]=c;
-                            if(solve(board))return true;
-                            else
-                                board[i][j]='.';
-                        }
+    return true;
+}
+
+bool sudoko(vector<vector<char> > &A){
+    for(int i=0;i<A.size();i++){
+        for(int j=0;j<A[0].size();j++){
+            if(A[i][j]=='.'){
+                for(char n='1';n<='9';n++){
+                    if(isValid(A,i,j,n)){
+                       A[i][j]= n;
+                       if(sudoko(A)){
+                           return true;
+                       }else{
+                           A[i][j]= '.';
+                       }
                     }
-                    return false;
                 }
+                return false;
             }
         }
-        return true;
     }
+    return true;
+}
+
+void Solution::solveSudoku(vector<vector<char> > &A) {
+    // Do not write main() function.
+    // Do not read input, instead use the arguments to the function.
+    // Do not print the output, instead return values as specified
+    // Still have a doubt. Checkout www.interviewbit.com/pages/sample_codes/ for more details
     
-    void solveSudoku(vector<vector<char>>& board) {
-        cout<<solve(board);
-    }
-};
+    sudoko(A);
+    
+}
