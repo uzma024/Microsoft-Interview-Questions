@@ -23,5 +23,7 @@ A solution set is:
 [1, 1, 6]
 ```
 Warning : DO NOT USE LIBRARY FUNCTION FOR GENERATING COMBINATIONS.
+
 Example : itertools.combinations in python.
+
 If you do, we will disqualify your submission retroactively and give you penalty points.
